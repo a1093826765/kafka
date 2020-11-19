@@ -8,6 +8,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 /**
+ * 生产者
  * @author november
  */
 public class CustomProducer {
@@ -30,7 +31,7 @@ public class CustomProducer {
 
         //调用send()方法
         for(int i=0;i<NUM;i++){
-            kafkaProducer.send(new ProducerRecord<String,String>("novidea",i+"","message-"+i));
+            kafkaProducer.send(new ProducerRecord<String,String>("bbb",i+"","message-"+i));
         }
 
         //关闭生产者
