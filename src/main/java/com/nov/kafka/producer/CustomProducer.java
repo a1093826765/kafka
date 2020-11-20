@@ -1,8 +1,6 @@
 package com.nov.kafka.producer;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
@@ -31,7 +29,18 @@ public class CustomProducer {
 
         //调用send()方法
         for(int i=0;i<NUM;i++){
-            kafkaProducer.send(new ProducerRecord<String,String>("bbb",i+"","message-"+i));
+            kafkaProducer.send(new ProducerRecord<String, String>("bbb", i + "", "message-" + i), new Callback() {
+                @Override
+                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                    if(e==null){
+                        //数据发送成功
+                        System.out.println("success");
+                    }else{
+                        //数据发送失败
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         //关闭生产者
