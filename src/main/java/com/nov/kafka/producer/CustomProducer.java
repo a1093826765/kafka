@@ -17,13 +17,21 @@ public class CustomProducer {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         //配置kafka参数
         Properties properties = new Properties();
+        //kafka集群
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost1:9092");
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
 
         properties.put(ProducerConfig.ACKS_CONFIG,"all");
+        //重试次数
+        properties.put(ProducerConfig.RETRIES_CONFIG,1);
+        //批次大小
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG,16384);
+        //等待时间
         properties.put(ProducerConfig.LINGER_MS_CONFIG,1);
+        //RecordAccumulator缓冲区大小
+        properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG,33554432);
+
 
         //创建1个生产者对象
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
