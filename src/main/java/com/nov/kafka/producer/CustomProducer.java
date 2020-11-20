@@ -30,18 +30,19 @@ public class CustomProducer {
 
         //调用send()方法
         for(int i=0;i<NUM;i++){
-            kafkaProducer.send(new ProducerRecord<String, String>("bbb", i + "", "message-" + i), new Callback() {
+            RecordMetadata recordMetadata = kafkaProducer.send(new ProducerRecord<String, String>("bbb", i + "", "message-" + i), new Callback() {
                 @Override
                 public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    if(e==null){
+                    if (e == null) {
                         //数据发送成功
                         System.out.println("success");
-                    }else{
+                    } else {
                         //数据发送失败
                         e.printStackTrace();
                     }
                 }
-            }).get();//这里添加get()后，阻塞功能，同步发送
+            }).get();//这里添加get()后，阻塞功能，同步发送，效率会比异步低
+            System.out.println("meta："+recordMetadata.offset()+" -- "+recordMetadata.topic());
         }
 
         //关闭生产者
