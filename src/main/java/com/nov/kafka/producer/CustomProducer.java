@@ -4,6 +4,7 @@ import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 生产者
@@ -13,7 +14,7 @@ public class CustomProducer {
 
     private static final int NUM=1000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         //配置kafka参数
         Properties properties = new Properties();
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost1:9092");
@@ -40,7 +41,7 @@ public class CustomProducer {
                         e.printStackTrace();
                     }
                 }
-            });
+            }).get();//这里添加get()后，阻塞功能，同步发送
         }
 
         //关闭生产者
