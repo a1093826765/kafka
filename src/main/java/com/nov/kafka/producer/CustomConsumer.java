@@ -4,8 +4,6 @@ import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import javax.tools.ToolProvider;
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
