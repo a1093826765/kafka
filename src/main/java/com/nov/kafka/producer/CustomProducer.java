@@ -3,6 +3,8 @@ package com.nov.kafka.producer;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -31,6 +33,13 @@ public class CustomProducer {
         properties.put(ProducerConfig.LINGER_MS_CONFIG,1);
         //RecordAccumulator缓冲区大小
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG,33554432);
+
+        //创建一个拦截器集合，可以存放多个拦截器
+        List<String> interceptorList=new ArrayList<>();
+        interceptorList.add("com.nov.kafka.producer.CounterInterceptor");
+        interceptorList.add("com.nov.kafka.producer.TimeInterceptor");
+        //指定拦截器
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,interceptorList);
 
 
         //创建1个生产者对象
