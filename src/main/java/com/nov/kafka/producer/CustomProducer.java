@@ -45,6 +45,7 @@ public class CustomProducer {
         //创建1个生产者对象
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
 
+
         //调用send()方法
         for(int i=0;i<NUM;i++){
             RecordMetadata recordMetadata = kafkaProducer.send(new ProducerRecord<String, String>("bbb", i + "", "message-" + i), new Callback() {
